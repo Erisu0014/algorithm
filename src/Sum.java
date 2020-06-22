@@ -2,11 +2,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Description 数字和问题
+ * @Description 一些求和问题
  * @Author alice
  * @Date 2020/6/22 8:38
  **/
-public class NumSum {
+public class Sum {
 
     public int[] twoNums(int[] nums, int target) {
         /**
