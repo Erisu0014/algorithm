@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class Sum {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         /**
          * @Description //两数相加 https://leetcode-cn.com/problems/add-two-numbers/
-         * @Date  2020/6/23 17:20
+         * @Date 2020/6/23 17:20
          * @Param l1 倒序链表l1(2 -> 4 -> 3)
          * @param l2 倒序链表l2(5 -> 6 -> 4)
          * @return ListNode 7 -> 0 -> 8
@@ -66,13 +67,41 @@ public class Sum {
 
     }
 
+    public int threeSumClosest(int[] nums, int target) {
+        /**
+         * @Description //最接近的三数之和 https://leetcode-cn.com/problems/3sum-closest/
+         * @Date 2020/6/24 8:17
+         * @Param nums 数组
+         * @param target 目标值
+         * @return int
+         **/
+        Arrays.sort(nums);
+        int sum = nums[0] + nums[1] + nums[2];
+        for (int i = 0; i < nums.length - 1; i++) {
+            int l = i;
+            int m = l + 1;
+            int r = nums.length - 1;
+            while (m < r) {
+                int now_sum = nums[l] + nums[m] + nums[r];
+                if (Math.abs(sum - target) > Math.abs(now_sum - target)) {
+                    sum = now_sum;
+                }
+                if (now_sum < target) {
+                    m++;
+                } else {
+                    r--;
+                }
+                if (sum - target == 0) {
+                    return sum;
+                }
+            }
+        }
+        return sum;
+    }
+
+
     public static void main(String[] args) {
-        ListNode l = new ListNode(5);
-//        ListNode l1 = l.setNext(new ListNode(4));
-//        ListNode l2 = l1.setNext(new ListNode(3));
-        ListNode r = new ListNode(5);
-//        ListNode r1 = r.setNext(new ListNode(6));
-//        ListNode r2 = r1.setNext(new ListNode(4));
-        new Sum().addTwoNumbers(l, r);
+        int num = new Sum().threeSumClosest(new int[]{-1, 2, 1, -4}, 1);
+        System.out.println(num);
     }
 }
