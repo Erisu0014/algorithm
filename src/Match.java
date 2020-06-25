@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description 一些匹配问题
@@ -82,7 +81,34 @@ public class Match {
         return false;
     }
 
+    public boolean wordBreak(String s, List<String> wordDict) {
+        /**
+         * @Description // 139. 单词拆分 https://leetcode-cn.com/problems/word-break/
+         * @Date 2020/6/25 18:24
+         * @Param s
+         * @param wordDict
+         * @return boolean
+         **/
+        Set<String> set = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 1; i < s.length() + 1; i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && set.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
+
+    }
+
     public static void main(String[] args) {
-        System.out.println(new Match().patternMatching("bbb", "xxxxxx"));
+//        System.out.println(new Match().patternMatching("bbb", "xxxxxx"));
+        List<String> s = new ArrayList<>();
+        s.add("leet");
+        s.add("code");
+        System.out.println(new Match().wordBreak("leetcode", s));
     }
 }
