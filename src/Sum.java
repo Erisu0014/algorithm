@@ -101,7 +101,8 @@ public class Sum {
 
 
     public static void main(String[] args) {
-        int num = new Sum().threeSumClosest(new int[]{-1, 2, 1, -4}, 1);
-        System.out.println(num);
+//        int num = new Sum().threeSumClosest(new int[]{-1, 2, 1, -4}, 1);
+//        System.out.println(num);
+
     }
 }
