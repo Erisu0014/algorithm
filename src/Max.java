@@ -55,6 +55,25 @@ public class Max {
         a[j] = temp;
     }
 
+    public int findLength(int[] A, int[] B) {
+        /**
+         * @Description // 718. 最长重复子数组 https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/
+         * @Date 2020/7/1 15:46
+         * @Param A 数组A
+         * @param B 数组B
+         * @return int
+         **/
+        int[][] dp = new int[A.length + 1][B.length + 1];
+        int res=0;
+        for (int i = A.length - 1; i >= 0; i--) {
+            for (int j = B.length - 1; j >= 0; j--) {
+                dp[i][j] = A[i] == B[j] ? dp[i + 1][j + 1] + 1 : 0;
+                res=Math.max(dp[i][j],res);
+            }
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
         int res = new Max().findKthLargest(new int[]{3, 2, 1, 5, 6, 4}, 2);
