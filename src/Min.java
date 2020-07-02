@@ -1,5 +1,7 @@
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 /**
  * @Description 最小值问题
@@ -35,9 +37,43 @@ public class Min {
 
     }
 
+    public int kthSmallest(int[][] matrix, int k) {
+        /**
+         * @Description // 378. 有序矩阵中第K小的元素
+         * @Date 2020/7/2 16:36
+         * @Param matrix
+         * @param k
+         * @return int
+         **/
+        int len = matrix.length;
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
+            }
+        });
+        for (int i = 0; i < len; i++) {
+            pq.offer(new int[]{matrix[i][0], i, 0});
+        }
+        for (int i = 0; i < k-1; i++) {
+            int[] now = pq.poll();
+            if (now[2] != len - 1) {
+                pq.offer(new int[]{matrix[now[1]][now[2] + 1], now[1], now[2] + 1});
+            }
+        }
+        return pq.poll()[0];
+    }
+
 
     public static void main(String[] args) {
-        int i = new Min().minSubArrayLen(4, new int[]{1, 4, 4});
-        System.out.println(i);
+        int[] a = new int[]{1, 5, 9};
+        int[] b = new int[]{10, 11, 13};
+        int[] c = new int[]{12, 13, 15};
+        int k = 8;
+        int [][]d=new int[][]{a,b,c};
+        System.out.println(new Min().kthSmallest(d,k));
+//        int i = new Min().minSubArrayLen(4, new int[]{1, 4, 4});
+//        System.out.println(i);
+
     }
 }
