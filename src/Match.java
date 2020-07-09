@@ -107,14 +107,14 @@ public class Match {
     public boolean isMatch(String s, String p) {
         /**
          * @Description // 44. 通配符匹配 https://leetcode-cn.com/problems/wildcard-matching/
-         * @Date  2020/7/6 17:34
+         * @Date 2020/7/6 17:34
          * @Param s 字符串
          * @param p 字符模式
          * @return boolean
          **/
-        boolean [][]dp=new boolean[s.length()+1][p.length()+1];
+        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
 
-        dp[0][0]=true;
+        dp[0][0] = true;
         for (int i = 1; i <= p.length(); ++i) {
             if (p.charAt(i - 1) == '*') {
                 dp[0][i] = true;
@@ -122,20 +122,49 @@ public class Match {
                 break;
             }
         }
-        for (int i=1;i<=s.length();i++){
-            for (int j=1;j<=p.length();j++){
-                if (s.charAt(i-1)==p.charAt(j-1)||p.charAt(j-1)=='?'){
-                    dp[i][j]=dp[i-1][j-1];
-                }else if (p.charAt(j-1)=='*'){
-                    dp[i][j]=dp[i-1][j]||dp[i][j-1];
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 1; j <= p.length(); j++) {
+                if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '?') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (p.charAt(j - 1) == '*') {
+                    dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
                 }
             }
         }
         return dp[s.length()][p.length()];
     }
 
+    public int respace(String[] dictionary, String sentence) {
+        /**
+         * @Description // 面试题 17.13. 恢复空格 https://leetcode-cn.com/problems/re-space-lcci/
+         * @Date 2020/7/9 15:47
+         * @Param dictionary
+         * @param sentence
+         * @return int
+         **/
+        if (dictionary == null || dictionary.length == 0) {
+            return sentence.length();
+        }
+        if (sentence == null || sentence.length() == 0) {
+            return 0;
+        }
+        Set<String> set = new HashSet<>(Arrays.asList(dictionary));
+        int[] dp = new int[sentence.length() + 1];
+        dp[0] = 0;
+        for (int i = 1; i <= sentence.length(); i++) {
+            dp[i] = dp[i - 1] + 1;
+            for (int j = 0; j < i; j++) {
+                if (set.contains(sentence.substring(j, i))) {
+                    dp[i] = Math.min(dp[i], dp[j]);
+                }
+            }
+        }
+        return dp[sentence.length()];
+
+    }
+
     public static void main(String[] args) {
-//        System.out.println(new Match().patternMatching("bbb", "xxxxxx"));
+        System.out.println(new Match().respace(new String[]{"looked","just","like","her","brother"},"jesslookedjustliketimherbrother"));
 
     }
 }
