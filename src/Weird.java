@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 
 /**
  * @author Erisu
@@ -25,11 +25,30 @@ public class Weird {
                 nums[num - 1] = -Math.abs(nums[num - 1]);
             }
         }
-        for (int i=0;i<nums.length;i++){
-            if (nums[i]>0){
-                return i+1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {
+                return i + 1;
             }
         }
-        return nums.length+1;
+        return nums.length + 1;
     }
+
+    public int calculateMinimumHP(int[][] dungeon) {
+        int m = dungeon.length;
+        int n = dungeon[0].length;
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 0; i <= m; ++i) {
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        }
+        dp[m][n - 1] = 1;
+        dp[m - 1][n] = 1;
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                int min = Math.min(dp[i + 1][j], dungeon[i][j + 1]);
+                dp[i][j] = Math.min(min - dungeon[i][j], 1);
+            }
+        }
+        return dp[0][0];
+    }
+
 }
