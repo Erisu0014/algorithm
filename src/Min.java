@@ -1,7 +1,4 @@
-import java.util.Comparator;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * @Description 最小值问题
@@ -55,7 +52,7 @@ public class Min {
         for (int i = 0; i < len; i++) {
             pq.offer(new int[]{matrix[i][0], i, 0});
         }
-        for (int i = 0; i < k-1; i++) {
+        for (int i = 0; i < k - 1; i++) {
             int[] now = pq.poll();
             if (now[2] != len - 1) {
                 pq.offer(new int[]{matrix[now[1]][now[2] + 1], now[1], now[2] + 1});
@@ -64,14 +61,31 @@ public class Min {
         return pq.poll()[0];
     }
 
+    public int minimumTotal(List<List<Integer>> triangle) {
+        /**
+         * @Description //120. 三角形最小路径和 https://leetcode-cn.com/problems/triangle/
+         * @Date 2020/7/14 8:18
+         * @Param triangle
+         * @return int
+         **/
+        int n = triangle.size();
+        int[][] dp = new int[n + 1][n + 1];
+        for (int i = n - 1; i > 0; i--) {
+            for (int j = 0; j <= i; j++) {
+                dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j + 1]) + triangle.get(i).get(j);
+            }
+        }
+        return dp[0][0];
+    }
+
 
     public static void main(String[] args) {
         int[] a = new int[]{1, 5, 9};
         int[] b = new int[]{10, 11, 13};
         int[] c = new int[]{12, 13, 15};
         int k = 8;
-        int [][]d=new int[][]{a,b,c};
-        System.out.println(new Min().kthSmallest(d,k));
+        int[][] d = new int[][]{a, b, c};
+        System.out.println(new Min().kthSmallest(d, k));
 //        int i = new Min().minSubArrayLen(4, new int[]{1, 4, 4});
 //        System.out.println(i);
 

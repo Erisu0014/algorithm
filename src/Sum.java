@@ -1,6 +1,5 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * @Description 一些求和问题
@@ -150,15 +149,37 @@ public class Sum {
         return a;
     }
 
+    List<List<Integer>> res = new ArrayList<>();
+
+    public List<List<Integer>> permute(int[] nums) {
+        ArrayList<Integer> output = new ArrayList<>();
+        for (Integer num : nums) {
+            output.add(num);
+        }
+        backtrack(nums.length, output, 0);
+        return res;
+    }
+
+    public void backtrack(int n, ArrayList<Integer> output, int first) {
+        if (first == n) {
+            res.add(new ArrayList<>(output));
+        }
+        for (int i = first; i < n; i++) {
+            Collections.swap(output, first, i);
+            backtrack(n, output, first + 1);
+            Collections.swap(output, first, i);
+        }
+    }
+
 
     public static void main(String[] args) {
 
-        int[][] obstacleGrid = new int[1][2];
-        obstacleGrid[0][0] = 1;
-        obstacleGrid[0][1] = 0;
-        new Sum().uniquePathsWithObstacles(obstacleGrid);
+//        int[][] obstacleGrid = new int[1][2];
+//        obstacleGrid[0][0] = 1;
+//        obstacleGrid[0][1] = 0;
+//        new Sum().uniquePathsWithObstacles(obstacleGrid);
 //        int num = new Sum().threeSumClosest(new int[]{-1, 2, 1, -4}, 1);
 //        System.out.println(num);
-
+//        new Sum().permute(new int[]{1,2,3});
     }
 }
