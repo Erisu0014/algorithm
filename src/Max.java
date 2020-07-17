@@ -1,3 +1,10 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 /**
  * @Description 最大值问题
  * @Author alice
@@ -64,14 +71,31 @@ public class Max {
          * @return int
          **/
         int[][] dp = new int[A.length + 1][B.length + 1];
-        int res=0;
+        int res = 0;
         for (int i = A.length - 1; i >= 0; i--) {
             for (int j = B.length - 1; j >= 0; j--) {
                 dp[i][j] = A[i] == B[j] ? dp[i + 1][j + 1] + 1 : 0;
-                res=Math.max(dp[i][j],res);
+                res = Math.max(dp[i][j], res);
             }
         }
         return res;
+    }
+
+    public String largestNumber(int[] nums) {
+        /**
+         * @Description //179. 最大数 https://leetcode-cn.com/problems/largest-number/
+         * @Date 2020/7/17 11:25
+         * @Param  * @param nums
+         * @return java.lang.String
+         **/
+        List<String> numList = new ArrayList<>();
+        for (int num : nums) {
+            numList.add(String.valueOf(num));
+        }
+        numList.sort(Comparator.reverseOrder());
+        StringBuilder sb = new StringBuilder();
+        numList.forEach(sb::append);
+        return sb.toString();
     }
 
 

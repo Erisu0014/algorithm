@@ -183,8 +183,31 @@ public class Match {
         return Arrays.copyOfRange(nums1, 0, k);
     }
 
-    public static void main(String[] args) {
-        System.out.println(new Match().respace(new String[]{"looked", "just", "like", "her", "brother"}, "jesslookedjustliketimherbrother"));
+    public int searchInsert(int[] nums, int target) {
+        /**
+         * @Description // 35. 搜索插入位置 https://leetcode-cn.com/problems/search-insert-position/
+         * @Date 2020/7/17 8:19
+         * @Param nums
+         * @param target
+         * @return int
+         **/
+        int begin = 0;
+        int end = nums.length - 1;
+        while (begin <= end) {
+            int middle = begin + end >> 1;
+            if (target < nums[middle]) {
+                end = middle - 1;
+            } else if (target > nums[middle]) {
+                begin = middle + 1;
+            } else {
+                return middle;
+            }
+        }
+        return begin;
+    }
 
+    public static void main(String[] args) {
+//        System.out.println(new Match().respace(new String[]{"looked", "just", "like", "her", "brother"}, "jesslookedjustliketimherbrother"));
+        System.out.println(new Match().searchInsert(new int[]{1, 3, 5, 6}, 7));
     }
 }

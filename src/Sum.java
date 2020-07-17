@@ -235,6 +235,12 @@ public class Sum {
     }
 
     public int numTrees(int n) {
+        /**
+         * @Description //96. 不同的二叉搜索树 https://leetcode-cn.com/problems/unique-binary-search-trees/
+         * @Date 2020/7/16 8:19
+         * @Param n
+         * @return int
+         **/
         int[] dp = new int[n + 1];
         dp[1] = 1;
         dp[0] = 1;
@@ -244,6 +250,19 @@ public class Sum {
             }
         }
         return dp[n];
+    }
+
+    public int waysToChange(int n) {
+        /**
+         * @Description //面试题 08.11. 硬币 https://leetcode-cn.com/problems/coin-lcci/
+         * @Date 2020/7/17 16:49
+         * @Param  * @param n
+         * @return int
+         **/
+//        int[] coins = new int[]{1, 5, 10, 25};
+//        int [][]dp=new int[4][n+1];
+//        for (int i=0;i<)
+        return 0;
     }
 
 
