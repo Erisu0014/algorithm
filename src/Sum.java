@@ -155,6 +155,12 @@ public class Sum {
     private int[] count;
 
     public List<Integer> countSmaller(int[] nums) {
+        /**
+         * @Description //315. 计算右侧小于当前元素的个数 https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/
+         * @Date  2020/7/20 17:30
+         * @Param  nums
+         * @return java.util.List<java.lang.Integer>
+         **/
         List<Integer> res = new ArrayList<>(nums.length);
 
         index = new int[nums.length];
