@@ -157,8 +157,8 @@ public class Sum {
     public List<Integer> countSmaller(int[] nums) {
         /**
          * @Description //315. 计算右侧小于当前元素的个数 https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/
-         * @Date  2020/7/20 17:30
-         * @Param  nums
+         * @Date 2020/7/20 17:30
+         * @Param nums
          * @return java.util.List<java.lang.Integer>
          **/
         List<Integer> res = new ArrayList<>(nums.length);
@@ -256,6 +256,41 @@ public class Sum {
             }
         }
         return dp[n];
+    }
+
+    public List<TreeNode> generateTrees(int n) {
+        /**
+         * @Description // 95. 不同的二叉搜索树 II https://leetcode-cn.com/problems/unique-binary-search-trees-ii/
+         * @Date 2020/7/21 11:20
+         * @Param  * @param n
+         * @return java.util.List<TreeNode>
+         **/
+        if (n == 0) {
+            return new ArrayList<>();
+        }
+        return dfsTree(1, n);
+
+    }
+
+    public List<TreeNode> dfsTree(Integer start, Integer end) {
+        List<TreeNode> res = new ArrayList<>();
+        if (start > end) {
+            res.add(null);
+            return res;
+        }
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> leftTree = dfsTree(start, i - 1);
+            List<TreeNode> rightTree = dfsTree(i + 1, end);
+            for (TreeNode left : leftTree) {
+                for (TreeNode right : rightTree) {
+                    TreeNode t = new TreeNode(i);
+                    t.left = left;
+                    t.right = right;
+                    res.add(t);
+                }
+            }
+        }
+        return res;
     }
 
     public int waysToChange(int n) {
